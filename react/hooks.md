@@ -144,6 +144,8 @@ useEffect(()=> {
 
 Ce hook est une variante de `useEffect()`. La seule différence est que celui-ci bloquera le rendu du thread, le DOM sera rendu après l'éxécution de la function passé en premier argument. Cette variante s'avère pratique lorsqu'il s'agit d'animer l'entré d'un composant.
 
+[Documentation : `useLayoutEffect()`]https://reactjs.org/docs/hooks-reference.html#uselayouteffect
+
 
 ### `useRef()` <a name="use-ref"></a>
 
@@ -205,6 +207,8 @@ const [count, dispatch] = useReducer(fonctionDeTransformation, initialState);
 ### `useContext()`  <a name="use-context"></a>
 
 Permet de storer un context global accessible depuis n'importe quel composant de l'application. 
+
+[Documentation : useContext()](https://reactjs.org/docs/hooks-reference.html#usecontext)
 
 ### Autres hooks <a name="autres-hooks"></a>
 
