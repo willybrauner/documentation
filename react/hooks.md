@@ -17,7 +17,7 @@ Table des matières :
 
 ## Introduction <a name="introduction"></a>
 
-Les hooks React, disponible depuis la version 16.8 permette le management de states et d’effets (sorte de lifecycle) au sein d’un composant fonctionnel. Cela n’était précédemment possible qu’au sein des class component. Ces derniers ont été implémentés au sein de la mise à jour de React nommée “React Fiber” en février 2019.
+Les hooks React, disponible depuis la version 16.8 permettent le management de states et d’effets (sorte de lifecycle) au sein d’un composant fonctionnel. Cela n’était précédemment possible qu’au sein des class component. Ces derniers ont été implémentés au sein de la mise à jour de React nommée “React Fiber” en février 2019.
 
 L’implémentation de cette nouvelle API n’engage aucun “breaking change”. L’utilisation des composant développés en class components sont toujours possible, bien que l’on ne puisse utiliser les hooks dans une class.
 
