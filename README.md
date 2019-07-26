@@ -6,7 +6,7 @@ Personal documentation.
 
 React: 
 
-- [hooks-fr](./react/hooks.md)
+- [hooks-fr](./react/hooks-fr.md)
 
 
 ## Credits
