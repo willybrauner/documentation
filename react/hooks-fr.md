@@ -63,7 +63,7 @@ setCounter(nouvelleValue);
 En typescript, nous typerons chaque state de cette manière :
 
 ```js
-const [counter, setCounter ] useState<number>(0);
+const [counter,setCounter]useState<number>(0);
 ```
 
 > Note : le state utilisant le hook useState reste asynchrone, tout comme dans les "class components".
