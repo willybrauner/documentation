@@ -1,40 +1,37 @@
-# React - Hooks 
-
 Table des matières :
+
 1. [Introduction](#introduction)
 2. [Qu’est ce qu’un hook ?](#qu-est-ce-qu-un-hook)
 3. [Pourquoi utiliser les hooks ?](#pourquoi-utiliser-les-hooks)
 4. [API](#api)
-    - [`useState()`](#use-state)
-    - [`useEffect()`](#use-effect)
-    - [`useLayoutEffect()`](#use-layout-effect)
-    - [`useRef()`](#use-ref)
-    - [`useReducer()`](#use-reducer)
-    - [`useContext()`](#use-context)
+   - [`useState()`](#use-state)
+   - [`useEffect()`](#use-effect)
+   - [`useLayoutEffect()`](#use-layout-effect)
+   - [`useRef()`](#use-ref)
+   - [`useMemo()`](#use-memo)
+   - [`useReducer()`](#use-reducer)
+   - [`useContext()`](#use-context)
 5. [Les customs hooks](#les-customs-hooks)
 6. [Limitations et règles d'utilisations](#limitations)
 7. [Liens utiles](#liens-utiles)
 
 ## Introduction <a name="introduction"></a>
 
-Les hooks React, disponible depuis la version 16.8 permettent le management de states et d’effets (sorte de lifecycle) au sein d’un composant fonctionnel. Cela n’était précédemment possible qu’au sein des class component. Ces derniers ont été implémentés au sein de la mise à jour de React nommée “React Fiber” en février 2019.
+Les hooks React, disponible depuis la version 16.8 permette le management de states et d’effets (sorte de lifecycle) au sein d’un composant fonctionnel. Cela n’était précédemment possible qu’au sein des class component. Ces derniers ont été implémentés au sein de la mise à jour de React nommée “React Fiber” en février 2019.
 
 L’implémentation de cette nouvelle API n’engage aucun “breaking change”. L’utilisation des composant développés en class components sont toujours possible, bien que l’on ne puisse utiliser les hooks dans une class.
 
 [Documentation : Introduction aux hooks](https://reactjs.org/docs/hooks-intro.html)
 
-
 ## Qu’est ce qu’un hook ? <a name="qu-est-ce-qu-un-hook"></a>
 
 Un hook React est une fonction rendu disponible par l’API React permettant de manager des states et des effets au sein d’une fonction. Un hook est toujours préfixé par le mot *use*. Exemple : useMaFunction.
-
 
 ## Pourquoi utiliser les hooks ? <a name="pourquoi-utiliser-les-hooks"></a>
 
 Cette nouvelle API va nous permettre de splitter intelligemment différentes logiques de notre composant, voir dans certain cas, de les externaliser et de les réutiliser à travers n'importe quel composant de notre application. (ces fonctions/logiques externalisées sont nommées *custom Hooks*). 
 
 L'apport de cette feature réduit concidérablement le poid final du bundle compilé mais aussi les répétitions de code (exemple : vérifier que nous sommes sur un device mobile ou non et écouter le resize du device).
-
 
 ## API <a name="api"></a>
 
@@ -45,7 +42,7 @@ Voici les hooks que nous allons utiliser le plus souvent :
 Cette fonction permet de seter un state “réactif” au sein d’une fonction : 
 
 ```js
-const [counter, setCounter] useState(0);
+const [counter, setCounter] = useState(0);
 ```
 
 `useState()` est une fonction retournant un tableau :
@@ -63,7 +60,7 @@ setCounter(nouvelleValue);
 En typescript, nous typerons chaque state de cette manière :
 
 ```js
-const [counter,setCounter]useState<number>(0);
+const [counter, setCounter] = useState<number>(0);
 ```
 
 > Note : le state utilisant le hook useState reste asynchrone, tout comme dans les "class components".
@@ -117,7 +114,6 @@ useEffect(()=> {
 La seule manière d'éxecuter le contenu du premier argument de `useEffect()`**uniquement à son update** est d'utiliser une référence qui fera office de "flag".
 
 ```js 
-
 // créer une ref 
 const initialMount = useRef(true);
 // créer l'effet 
@@ -139,13 +135,11 @@ useEffect(()=> {
 
 [Documentation : useEffect()](https://reactjs.org/docs/hooks-effect.html)
 
-
 ### `useLayoutEffect()` <a name="use-layout-effect"></a>
 
 Ce hook est une variante de `useEffect()`. La seule différence est que celui-ci bloquera le rendu du thread, le DOM sera rendu après l'éxécution de la function passé en premier argument. Cette variante s'avère pratique lorsqu'il s'agit d'animer l'entré d'un composant.
 
-[Documentation : `useLayoutEffect()`]https://reactjs.org/docs/hooks-reference.html#uselayouteffect
-
+[Documentation : useLayoutEffect()]https://reactjs.org/docs/hooks-reference.html#uselayouteffect
 
 ### `useRef()` <a name="use-ref"></a>
 
@@ -171,6 +165,22 @@ Dans le cas où l'on souhaiterait récupérer un tableau de ref, si par exemple 
 
 [Documentation : useRef()](https://reactjs.org/docs/hooks-reference.html#useref)
 
+### `useMemo()` <a name="use-memo"></a>
+
+UseMemo va nous permettre de "mémoïser" un appel d'une fonction ou le contenu d'une variable. Cela est particulièrement utile si l'on prend en compte l'environnement fonctionnel. Pour rappel, à chaque mutation de state ou props, l'ensemble de la fonction va être re-exécuté. 
+
+Example d'une instance, qui, écrit de la sorte au sein d'une fonction, va être ré-appelé entre chaque rendu :
+```js
+const instance = new ClassInstance();
+```
+
+Pour éviter cela, nous pouvons mettre en mémoire cette variable contenant l'instance, pour que celle-ci ne soit pas appelé à nouveau entre chaque rendu, ou du moins, ne soit rendu qu'en fonction du changement d'une valeur précise (pour cela, renseigner une valeur dans le tableau en second paramètre)
+
+```js
+const instance = useMemo(()=> new ClassInstance(), []);
+```
+
+[Documentation : useMemo()](https://reactjs.org/docs/hooks-reference.html#usememo)
 
 ### `useReducer()` <a name="use-reducer"></a>
 
@@ -199,6 +209,7 @@ const [count, dispatch] = useReducer(fonctionDeTransformation, initialState);
 // utiliser le dispatcher pour muter le state
 <div onClick={()=> dispatch('coucou')}> // le click retournera state + 3
 ```
+
 - [Documentation : useReducer()](https://reactjs.org/docs/hooks-reference.html#usereducer)
 - [Test codeSandBox](https://codesandbox.io/s/test-usereducer-ycmvz)
 - [article "how to use useReducer in react hooks"](https://medium.com/crowdbotics/how-to-use-usereducer-in-react-hooks-for-performance-optimization-ecafca9e7bf5)
@@ -221,10 +232,10 @@ Il exite plusieurs autre fonctions disponibles dans l'API. Dont certaines que l'
 Les custom hooks sont des functions qui contiennent une logique utilisable depuis n'importe quel composant. Cette possibilité va nous mener à créer notre propre collection de *custom hooks* au titre de helpers.
 
 Il existe déjà plusieurs collections de *custom hooks* open source : 
+
 - [react-hooks collection](https://nikgraf.github.io/react-hooks/)
 - [rooks](https://github.com/imbhargav5/rooks)
 - [useHooks](https://usehooks.com)
-
 
 ## Limitations et règles d'utilisations  <a name="limitations"></a>
 
